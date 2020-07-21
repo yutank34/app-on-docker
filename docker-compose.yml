@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - '3000:3000'
+    volumes:
+      - './go/src:/go/src'
+    tty: true
+    stdin_open: true
+  mysql:
+    build:
+      context: .
+      dockerfile: ./middleware/mysql/Dockerfile
+    environment:
+      MYSQL_DATABASE: webapp
+      MYSQL_ROOT_PASSWORD: password
+      TZ: "Asia/Tokyo"
+    ports:
+      - "3306:3306"
